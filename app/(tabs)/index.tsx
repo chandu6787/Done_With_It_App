@@ -12,7 +12,7 @@ export default function HomeScreen() {
       alignItems:"center",
       padding:10
     }}>
-      <AppButton title="Login" onPress={()=>console.log("Tapped!")}></AppButton>
+      <WelcomeScreen/>
     </View>
   );
 }

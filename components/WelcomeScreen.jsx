@@ -7,12 +7,14 @@ import {
   View,
   Text
 } from "react-native";
+import AppButton from "./AppButton";
 
 const { width, height } = Dimensions.get("window");
 
 function WelcomeScreen(props) {
   return (
     <ImageBackground
+    blurRadius={10}
       resizeMode="cover"
       style={styles.background}
       // path should point to assets folder inside this project (one level up from components)
@@ -20,11 +22,14 @@ function WelcomeScreen(props) {
     >
       <View style={styles.logoContainer}>
       <Image style={styles.logo} source={require("../assets/images/logo-red.png")} />
-      <Text>Sell What You Don't Need</Text>
+      <Text style={styles.tagline}>Sell What You Don't Need</Text>
 
       </View>
-      <View style={styles.loginButton}></View>
-      <View style={styles.registerButton}></View>
+      <View style={styles.buttonContainer}>
+      <AppButton title="Login"/>
+      <AppButton title="Register" color="#4ecdc4"/>
+
+      </View>
     </ImageBackground>
   );
 }
@@ -37,26 +42,26 @@ const styles = StyleSheet.create({
     alignItems:"center",
 
   },
-  loginButton: {
-    width: width,
-    height: 70,
-    backgroundColor: "#fc5c65",
-  },
-  registerButton: {
-    width: width,
-    height: 70,
-    backgroundColor: "#4ecdc4",
-  },
   logo:{
     width:100,
     height:100,
-    alignItems:"center"
   },
   logoContainer:{
     position:"absolute",
     top:70,
+    alignItems:"center"
 
+  },
+  buttonContainer:{
+    width:"100%",
+    padding:20,
+  },
+  tagline:{
+    fontSize:25,
+    paddingVertical:20,
+    fontWeight:"600"
   }
+
 });
 
 export default WelcomeScreen;
