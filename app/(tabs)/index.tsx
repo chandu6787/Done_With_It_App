@@ -4,15 +4,15 @@ import ViewImageScreen from "../../components/ViewImageScreen";
 import WelcomeScreen from "../../components/WelcomeScreen";
 import AppButton from "@/components/AppButton.jsx";
 import {View} from  "react-native"
+import Card from "../../components/Card";
 export default function HomeScreen() {
   return (
     <View style={{
       flex:1,
-      justifyContent:"center",
-      alignItems:"center",
-      padding:10
+      
+      padding:25
     }}>
-      <WelcomeScreen/>
+      <Card title="Red jacket for sale" subTitle="$100" image={require("../../assets/images/jacket.jpg")}></Card>
     </View>
   );
 }
