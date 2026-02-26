@@ -1,18 +1,15 @@
 // simplified HomeScreen - we only render the welcome UI here
 import React from "react";
-import ViewImageScreen from "../../components/ViewImageScreen";
-import WelcomeScreen from "../../components/WelcomeScreen";
-import AppButton from "@/components/AppButton.jsx";
-import {View} from  "react-native"
-import Card from "../../components/Card";
+import { View } from "react-native";
+import ListingDetailsScreen from "../../components/ListingDetailsScreen.jsx";
 export default function HomeScreen() {
   return (
     <View style={{
       flex:1,
       
-      padding:25
+      padding:5
     }}>
-      <Card title="Red jacket for sale" subTitle="$100" image={require("../../assets/images/jacket.jpg")}></Card>
+      <ListingDetailsScreen/>
     </View>
   );
 }
