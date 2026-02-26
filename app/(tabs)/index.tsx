@@ -2,6 +2,7 @@
 import React from "react";
 import { View } from "react-native";
 import ListingDetailsScreen from "../../components/ListingDetailsScreen.jsx";
+import ViewImageScreen from "../../components/ViewImageScreen.jsx";
 export default function HomeScreen() {
   return (
     <View style={{
@@ -9,7 +10,7 @@ export default function HomeScreen() {
       
       padding:5
     }}>
-      <ListingDetailsScreen/>
+      <ViewImageScreen/>
     </View>
   );
 }
