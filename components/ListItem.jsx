@@ -1,9 +1,15 @@
-import { StyleSheet, Text, View ,Image} from 'react-native'
+import { StyleSheet, Text, View ,Image,TouchableHighlight} from 'react-native'
 import React from 'react'
 import AppText from './AppText'
-
-export default function ListItem({title,subtitle,image}) {
+import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
+export default function ListItem({title,subtitle,image,onPress,renderRightActions}) {
   return (
+    <Swipeable
+    renderRightActions={renderRightActions}>
+    <TouchableHighlight
+    onPress={onPress}
+    underlayColor={"#ede7e7"}
+    >
     <View style={styles.container}>
         <Image  style={styles.image} source={image} />
         <View>
@@ -11,6 +17,9 @@ export default function ListItem({title,subtitle,image}) {
             <AppText style={styles.subtitle}>{subtitle}</AppText>
         </View>
     </View>
+    </TouchableHighlight>
+
+    </Swipeable>
   )
 }
 

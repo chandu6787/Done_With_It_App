@@ -1,7 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { FlatList } from 'react-native'
+// always use the same SafeAreaView that the provider comes from
+import ListItemDeleteAction from './ListItemDeleteAction';
+import { SafeAreaView } from 'react-native-safe-area-context'
 import ListItem from './ListItem.jsx'
+import ListItemSeparator from './ListItemSeparator.jsx'
 const messages=[
     {
         id:1,
@@ -18,13 +22,16 @@ const messages=[
 ]
 export default function MessagesScreen() {
   return (
-    <FlatList data={messages}
-    keyExtractor={message => message.id.toString()}
-    renderItem={({item})=><ListItem title={item.title} 
-    subtitle={item.description}
-    image={item.image}
-    />}
-    />
+      <FlatList data={messages}
+        keyExtractor={message => message.id.toString()}
+        renderItem={({item})=><ListItem title={item.title} 
+          subtitle={item.description}
+          image={item.image}
+          onPress={()=>console.log(" ")}
+          renderRightActions={ListItemDeleteAction}
+        />}
+        ItemSeparatorComponent={ListItemSeparator}
+      />
   )
 }
 
