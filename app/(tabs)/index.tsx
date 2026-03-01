@@ -5,6 +5,7 @@ import MessagesScreen from "../../components/MessagesScreen.jsx";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Icon from "../../components/Icon.jsx"
 import ListItem from "../../components/ListItem.jsx";
+import AccountScreen from "../../components/AccountScreen.jsx";
 export default function HomeScreen() {
   return (
     // SafeAreaView needs to fill the screen to apply insets
@@ -14,6 +15,7 @@ export default function HomeScreen() {
     }}>
       {/* <ListItem title="My title" subtitle="My subtitle"
       ImageComponent={<Icon name="email"/>}/> */}
+      <AccountScreen/>
     </SafeAreaView>
     </GestureHandlerRootView>
   );

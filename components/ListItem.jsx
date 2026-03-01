@@ -3,12 +3,12 @@ import { Image, StyleSheet, TouchableHighlight, View } from "react-native";
 import Swipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 import AppText from "./AppText";
 
-export default function ListItem({ title, subtitle, image, onPress, renderRightActions,ImageComponent }) {
+export default function ListItem({ title, subtitle, image, onPress, renderRightActions,IconComponent }) {
   return (
     <Swipeable renderRightActions={renderRightActions}>
       <TouchableHighlight onPress={onPress} underlayColor="#ede7e7">
         <View style={styles.container}>
-          {ImageComponent}
+          {IconComponent}
        {image && <Image  style={styles.image} source={image} />}
         <View style={styles.detailsContainer}>
             <AppText style={styles.title}>{title}</AppText>
