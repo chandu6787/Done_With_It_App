@@ -22,7 +22,7 @@ function WelcomeScreen(props) {
     >
       <View style={styles.logoContainer}>
       <Image style={styles.logo} source={require("../assets/images/logo-red.png")} />
-      <Text style={styles.tagline}>Sell What You Don't Need</Text>
+      <Text style={styles.tagline}>Sell What You Don&apos;t Need</Text>
 
       </View>
       <View style={styles.buttonContainer}>
