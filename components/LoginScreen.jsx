@@ -1,11 +1,9 @@
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
 import AppButton from "./AppButton";
-import AppTextInput from "./AppTextInput";
 import { Formik } from "formik";
 import * as Yup from "yup"
-import AppText from "./AppText";
-import ErrorMessage from "./ErrorMessage";
+import AppFormField from "./AppFormField";
 const validationSchema=Yup.object().shape(
   {
     email:Yup.string().required().email().label("Email"),
@@ -24,30 +22,28 @@ export default function LoginScreen() {
       validationSchema={validationSchema}
       >
         {
-          ({handleChange,handleSubmit,errors,setFieldTouched,touched})=>(
+          ({handleSubmit})=>(
             <>
             
-            <AppTextInput
+            <AppFormField
+          name="email"
           autoCapitalize="none"
           autoCorrect={false}
           iconName="email"
           keyboardType="email-address"
           placeholder="Email"
-          onChangeText={handleChange("email")}
-          onBlur={()=>setFieldTouched("email")}
+         
         />
-      {touched.email && <ErrorMessage error={errors.email}/>}
 
-        <AppTextInput
+        <AppFormField
+          name="password"
           autoCapitalize="none"
           autoCorrect={false}
           iconName="lock"
           placeholder="Password"
           secureTextEntry={true}
           textContentType="password"
-          onChangeText={handleChange("password")}
         />
-       {touched.password && <ErrorMessage error={errors.password}/> }
           <AppButton title="Login" onPress={handleSubmit} />
 
             </>
