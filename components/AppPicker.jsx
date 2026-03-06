@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import AppText from "./AppText";
 import PickerItem from "./PickerItem";
-export default function AppPicker({ iconName, placeholder, items ,onSelectItem,selectedItem}) {
+export default function AppPicker({ iconName, placeholder, items ,onSelectItem,selectedItem,PickerItemComponent=PickerItem,numberOfColumns=1}) {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -25,17 +25,19 @@ export default function AppPicker({ iconName, placeholder, items ,onSelectItem,s
               size={40}
             />
           )}
-          <AppText style={styles.text}>{selectedItem?selectedItem.label :placeholder}</AppText>
+         {selectedItem ?  <AppText style={styles.text}>{selectedItem.label}</AppText>: <AppText style={styles.placeholder}>{placeholder}</AppText>}
           <MaterialCommunityIcons name="chevron-down" size={40} />
         </View>
       </TouchableWithoutFeedback>
       <Modal visible={modalVisible} animationType="slide">
         <Button title="Close" onPress={() => setModalVisible(false)} />
         <FlatList
+          numColumns={numberOfColumns}
           data={items}
           keyExtractor={(item) => item.value.toString()}
           renderItem={({ item }) => (
-            <PickerItem
+            <PickerItemComponent
+            item={item}
               label={item.label}
               onPress={() => {
                 setModalVisible(false);
@@ -69,4 +71,7 @@ const styles = StyleSheet.create({
   text: {
     flex: 1,
   },
+  placeholder:{
+    color:"#A9A9A9"
+  }
 });

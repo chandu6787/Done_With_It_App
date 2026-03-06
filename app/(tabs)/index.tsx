@@ -1,23 +1,17 @@
-// simplified HomeScreen - we only render the welcome UI here
-import React from "react";
+import ListingEditScreen from "@/components/ListingEditScreen.jsx";
+import ImageInputList from "../../components/ImageInputList.jsx";
+import * as ImagePicker from "expo-image-picker";
+import React, { useState } from "react";
+import { Button, Image } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import LoginScreen from "../../components/LoginScreen.jsx";
-
 export default function HomeScreen() {
+  
   return (
-    // SafeAreaView needs to fill the screen to apply insets
-        <GestureHandlerRootView style={{ flex: 1 }}>
-    <SafeAreaView style={{ flex: 1 ,
-      padding:10
-    }}>
-      {/* <ListItem title="My title" subtitle="My subtitle"
-      ImageComponent={<Icon name="email"/>}/> */}
-      {/* <AppTextInput iconName="email" placeholder="Type something" /> */}
-     <LoginScreen/>
-    </SafeAreaView>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, padding: 10 }}>
+      <ListingEditScreen/>
+      </SafeAreaView>
     </GestureHandlerRootView>
   );
 }
-
-// styles were only used by the previous example content and are no longer needed
