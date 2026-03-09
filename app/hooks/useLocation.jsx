@@ -1,5 +1,5 @@
-import React,{useState,useEffect} from 'react'
-import * as Location from 'expo-location'
+import { useEffect, useState } from "react";
+import * as Location from "expo-location";
 
 export default function useLocation() {
     const [location, setLocation] = useState();

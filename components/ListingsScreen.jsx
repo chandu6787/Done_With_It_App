@@ -1,34 +1,52 @@
-import { StyleSheet,FlatList, View } from 'react-native'
-import React from 'react'
-import Card from './Card'
-const listings=[
-    {
-        id:1,
-        title:'Red jacket for sale',
-        price:100,
-        image:require('../assets/images/jacket.jpg')
-    },
-    {
-        id:2,
-        title:'Couch in great condition',
-        price:1000,
-        image:require('../assets/images/couch.jpg')
-    },
+import React, { use, useEffect, useState } from "react";
+import { FlatList, StyleSheet, View } from "react-native";
+import Card from "./Card";
+import Screen from "./Screen";
+import AppText from "./AppText";
+import AppButton from "./AppButton";
+import listingsApi from "../app/api/listings";
+import ActivityIndicator from "./ActivityIndicator";
+import useApi from "../hooks/useApi"
 
-]
-export default function ListingsScreen() {
+export default function ListingsScreen({ navigation }) {
+ const {data:listing,error,loading,request:loadListings}=useApi(listingsApi.getListings)
+
+  useEffect(() => {
+    loadListings();
+  }, []);
+
+  
+
   return (
-    <View>
-        <FlatList 
-        data={listings}
-        keyExtractor={listing=>listing.id.toString()}
-        renderItem={({item})=><Card title={item.title}
-        subTitle={"$"+item.price}
-        image={item.image}
-        />}
-        />
-    </View>
-  )
+    <Screen style={styles.container}>
+      {error && (
+        <View style={styles.errorContainer}>
+          <AppText>Could not load listings.</AppText>
+          <AppButton title="Retry" onPress={loadListings} />
+        </View>
+      )}
+      <FlatList
+        data={listing}
+        keyExtractor={(listing) => listing.id.toString()}
+        renderItem={({ item }) => (
+          <Card
+            title={item.title}
+            subTitle={"$" + item.price}
+            imageUrl={item.images?.[0]?.url || item.imageUrl}
+            onPress={() => navigation.navigate("ListingDetails", item)}
+          />
+        )}
+      />
+      <ActivityIndicator visible={loading} />
+    </Screen>
+  );
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+  },
+  errorContainer: {
+    marginBottom: 16,
+  },
+});

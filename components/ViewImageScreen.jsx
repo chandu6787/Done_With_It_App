@@ -1,11 +1,12 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import { Dimensions, Image, StyleSheet, View } from "react-native";
+import Screen from "./Screen";
 const { width, height } = Dimensions.get("window");
 
 export default function ViewImageScreen() {
   return (
-    <View style={styles.container}>
+    <Screen style={styles.container}>
       <Image
         style={styles.image}
         source={require("../assets/images/chair.jpg")}
@@ -16,7 +17,7 @@ export default function ViewImageScreen() {
       <View style={styles.deleteIcon}>
         <MaterialCommunityIcons name="trash-can-outline" color="white" size={40} />
       </View>
-    </View>
+    </Screen>
   );
 }
 const styles = StyleSheet.create({
@@ -34,6 +35,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#000",
     flex: 1,
+    padding: 10,
     justifyContent: "center",
     alignItems: "center",
   },

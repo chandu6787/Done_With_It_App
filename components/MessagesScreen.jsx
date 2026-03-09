@@ -1,8 +1,9 @@
 import React,{useState} from "react";
-import { FlatList } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import ListItem from "./ListItem.jsx";
 import ListItemDeleteAction from "./ListItemDeleteAction";
 import ListItemSeparator from "./ListItemSeparator.jsx";
+import Screen from "./Screen";
 
 const initialMessages = [
     {
@@ -27,32 +28,40 @@ const handleDelete=(message)=>
   setMessages(newMessages);
 }
   return (
-    <FlatList
-      data={messages}
-      keyExtractor={(message) => message.id.toString()}
-      renderItem={({ item }) => (
-        <ListItem
-          title={item.title}
-          subtitle={item.description}
-          image={item.image}
-          onPress={() => console.log("Pressed", item.title)}
-          renderRightActions={() => <ListItemDeleteAction onPress={()=>handleDelete(item)} />}
-        />
-      )}
-      ItemSeparatorComponent={ListItemSeparator}
-      refreshing={refresh}
-      onRefresh={()=>
-      {
-        setMessages([
-           {
-        id: 2,
-        title: "T2",
-        description: "D2",
-        image: require("../assets/images/raghava.jpg")
-    },
-        ])
-      }
-      }
-    />
+    <Screen style={styles.container}>
+      <FlatList
+        data={messages}
+        keyExtractor={(message) => message.id.toString()}
+        renderItem={({ item }) => (
+          <ListItem
+            title={item.title}
+            subtitle={item.description}
+            image={item.image}
+            onPress={() => console.log("Pressed", item.title)}
+            renderRightActions={() => <ListItemDeleteAction onPress={()=>handleDelete(item)} />}
+          />
+        )}
+        ItemSeparatorComponent={ListItemSeparator}
+        refreshing={refresh}
+        onRefresh={()=>
+        {
+          setMessages([
+             {
+          id: 2,
+          title: "T2",
+          description: "D2",
+          image: require("../assets/images/raghava.jpg")
+      },
+          ])
+        }
+        }
+      />
+    </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+  },
+});
