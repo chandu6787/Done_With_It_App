@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
-import { Alert, Image, StyleSheet, TouchableWithoutFeedback, View } from "react-native";
+import { Alert, Image, StyleSheet, TouchableWithoutFeedback, View, Platform } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../app/config/colors";
 import * as ImagePicker from "expo-image-picker";
 export default function ImageInput({ imageUri,onChangeImage }) {
   useEffect(() => {
-    requestPermission();
+    if (Platform.OS !== "web") {
+      requestPermission();
+    }
   }, []);
 
   const requestPermission = async () => {
@@ -18,7 +20,7 @@ export default function ImageInput({ imageUri,onChangeImage }) {
   const selectImage = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ["images"],
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
         quality: 0.7,
       });
       if (!result.canceled) {

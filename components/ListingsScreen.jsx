@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import Card from "./Card";
 import Screen from "./Screen";
@@ -6,16 +6,19 @@ import AppText from "./AppText";
 import AppButton from "./AppButton";
 import listingsApi from "../app/api/listings";
 import ActivityIndicator from "./ActivityIndicator";
-import useApi from "../hooks/useApi"
+import useApi from "../hooks/useApi";
 
 export default function ListingsScreen({ navigation }) {
- const {data:listing,error,loading,request:loadListings}=useApi(listingsApi.getListings)
+  const {
+    data: listing,
+    error,
+    loading,
+    request: loadListings,
+  } = useApi(listingsApi.getListings);
 
   useEffect(() => {
     loadListings();
   }, []);
-
-  
 
   return (
     <Screen style={styles.container}>

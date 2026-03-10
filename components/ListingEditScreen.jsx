@@ -8,6 +8,10 @@ import FormImagePicker from "./FormImagePicker";
 import Screen from "./Screen";
 import SubmitButton from "./SubmitButton";
 import useLocation from "../app/hooks/useLocation";
+import listingsApi from "../app/api/listings";
+import UploadScreen from "./UploadScreen";
+import { useState } from "react";
+
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
   price: Yup.number().required().min(1).max(10000).label("Price"),
@@ -76,9 +80,38 @@ const categories = [
 ];
 
 function ListingEditScreen() {
-  const location=useLocation();
+  const location = useLocation();
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  const handleSubmit = async (listing,{resetForm}) => {
+    setProgress(0);
+    setUploadVisible(true);
+
+    const result = await listingsApi.addListing({ ...listing, location }, (p) =>
+      setProgress(p),
+    );
+
+    if (!result.ok) {
+      setUploadVisible(false);
+      const message =
+        result.data?.error || result.problem || "Could not save the listing";
+      return alert(message);
+    }
+
+    // Fill bar to 99% first, then trigger done animation after short delay
+    setProgress(0.90);
+    setTimeout(() => setProgress(1), 400);
+    resetForm();
+  };
+
   return (
     <Screen style={styles.container}>
+      <UploadScreen
+        progress={progress}
+        visible={uploadVisible}
+        onDone={() => setUploadVisible(false)}
+      />
       <AppForm
         initialValues={{
           title: "",
@@ -87,7 +120,7 @@ function ListingEditScreen() {
           category: null,
           images: [],
         }}
-        onSubmit={(values) => console.log( location )}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         <FormImagePicker name="images" />

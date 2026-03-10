@@ -3,7 +3,7 @@ import { useFormikContext } from 'formik'
 import AppTextInput from './AppTextInput';
 import ErrorMessage from './ErrorMessage';
 export default function AppFormField({name,...otherProps}) {
-    const {setFieldTouched,handleChange,errors,touched}=useFormikContext();
+    const {setFieldTouched,handleChange,setFieldValue,errors,touched,values}=useFormikContext();
   return (
     <>
      <AppTextInput
@@ -13,8 +13,9 @@ export default function AppFormField({name,...otherProps}) {
             //   keyboardType="email-address"
             //   placeholder="Email"
             {...otherProps}
-              onChangeText={handleChange(name)}
+              onChangeText={(text)=>setFieldValue(name,text)}
               onBlur={()=>setFieldTouched(name)}
+              value={values[name]}
             />
           {touched[name] && <ErrorMessage error={errors[name]}/>}
     </>

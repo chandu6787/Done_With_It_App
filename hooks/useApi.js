@@ -1,9 +1,9 @@
 import { useState } from "react";
-export default  useApi=(apiFunc)=>
-{
- const [data, setData] = useState([]);
+
+const useApi = (apiFunc) => {
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);   
+  const [error, setError] = useState(false);
 
   const request = async (...args) => {
     setLoading(true);
@@ -16,9 +16,10 @@ export default  useApi=(apiFunc)=>
     }
 
     setError(false);
-    if (Array.isArray(response.data)) {
-      setListing(response.data);
-    }
+    setData(response.data);
   };
-  return {data,error,loading,request};
-}
+
+  return { data, error, loading, request };
+};
+
+export default useApi;
