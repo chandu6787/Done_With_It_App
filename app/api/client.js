@@ -1,7 +1,7 @@
 import { create } from "apisauce";
 import Constants from "expo-constants";
 import { Platform } from "react-native";
-
+import cache from "../utility/cache"
 const configuredBaseUrl = process.env.EXPO_PUBLIC_API_URL;
 const hostUri =
   Constants.expoConfig?.hostUri ||
@@ -21,5 +21,17 @@ const localBaseUrl = configuredBaseUrl
 const apiClient = create({
   baseURL: localBaseUrl,
 });
+const get=apiClient.get;
+apiClient.get=async(url,params,axiosConfig)=>
+{
+   const response=await get(url,params,axiosConfig);
+   if(response.ok)
+   {
+      cache.store(url,response.data);
+      return response;
+   }
+   const data=await cache.get(url);
+   return data ? {ok:true,data}:response;
+}
 
 export default apiClient;

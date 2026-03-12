@@ -1,13 +1,20 @@
-import { StyleSheet, Text, View ,Image, TouchableWithoutFeedback} from 'react-native'
+import { StyleSheet, Text, View , TouchableWithoutFeedback, Image} from 'react-native'
 import React from 'react'
 import AppText from './AppText'
 export default function Card({title,subTitle,imageUrl,onPress}) {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
 
-
     <View style={styles.card}>
-        <Image style={styles.image} source={{uri:imageUrl}}/>
+        {/* Use the native Image component to avoid any placeholder tinting from the cache library. */}
+        <Image
+          style={styles.image}
+          source={
+            imageUrl
+              ? {uri:imageUrl}
+              : require('../assets/images/jacket.jpg')
+          }
+        />
         <View style={styles.detailContainer}>
         <AppText style={styles.title}> {title}</AppText>
         <AppText style={styles.subTitle}>{subTitle}</AppText>
